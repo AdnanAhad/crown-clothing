@@ -54,6 +54,8 @@
   border: 1px solid black;
   margin: 0 7.5px 15px;
   overflow: hidden;
+  background-size: cover;
+  background-position: center;
 
   &:hover {
     cursor: pointer;
@@ -64,7 +66,7 @@
     }
 
     & .content {
-      opacity: 0.9;
+      opacity: 0.8;
     }
   }
 
