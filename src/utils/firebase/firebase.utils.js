@@ -26,6 +26,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+// its provider for google authentication
 const provider = new GoogleAuthProvider();
 
 provider.setCustomParameters({
@@ -33,13 +34,21 @@ provider.setCustomParameters({
 });
 
 export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+
+// this is for google account authentication
+export const signInWithGooglePopup = () => signInWithPopup(auth, provider); // here is provider for google
+
+// now we need sign with redirect
+export const signInWithGooogleRedirect = () =>
+  signInWithRedirect(auth, provider);
 
 export const db = getFirestore();
 
+// we can call it from signIn page and Pass user from there
 export const createUserDocumentFromAuth = async (userAuth) => {
   const userDocRef = doc(db, "users", userAuth.uid);
   // console.log(userDocRef);
+  // consoling the user details
   console.log(userAuth);
 
   const userSnapshot = await getDoc(userDocRef);
@@ -48,11 +57,14 @@ export const createUserDocumentFromAuth = async (userAuth) => {
 
   //if user data does not exists
 
+  // displaName and email is in userAuth variable passed in main function
   if (!userSnapshot.exists()) {
+    // if user does not exist it will store it in the firestore database
+    // then we can login again
     const { displayName, email } = userAuth;
-    const createdAt = new Date();
+    const createdAt = new Date(); // its i date when we create that document
 
-    console.log("user does not   exists");
+    console.log("user does not exists now logi again with the same account");
 
     try {
       await setDoc(userDocRef, {
@@ -61,7 +73,7 @@ export const createUserDocumentFromAuth = async (userAuth) => {
         createdAt,
       });
     } catch (error) {
-      console.log(error.messagingSenderId, "Error in Try catch block");
+      console.log(error, "Error in Try catch block");
     }
   }
 
