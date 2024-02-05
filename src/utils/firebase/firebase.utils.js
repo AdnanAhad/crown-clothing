@@ -6,7 +6,7 @@ import { initializeApp } from "firebase/app";
 //--------------------
 import {
   getAuth,
-  signInWithRedirect,
+  // signInWithRedirect, //sign in with redirect
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
@@ -29,6 +29,12 @@ const app = initializeApp(firebaseConfig);
 // its provider for google authentication
 const provider = new GoogleAuthProvider();
 
+// provider for facebook
+// const providerFacebook = new FacebookAuthProvider();
+// providerFacebook.setCustomParameters({
+//   prompt: "select_account",
+// });
+
 provider.setCustomParameters({
   prompt: "select_account",
 });
@@ -39,8 +45,11 @@ export const auth = getAuth();
 export const signInWithGooglePopup = () => signInWithPopup(auth, provider); // here is provider for google
 
 // now we need sign with redirect
-export const signInWithGooogleRedirect = () =>
-  signInWithRedirect(auth, provider);
+// export const signInWithGooogleRedirect = () =>
+//   signInWithRedirect(auth, provider);
+
+//sign in with facebook
+// export const signInWithFacebook = () => signInWithPopup(auth, providerFacebook);
 
 export const db = getFirestore();
 
